@@ -12,7 +12,7 @@ import SwiftUI
 public struct BottomSheet<Content: View>: View {
     
     private var dragToDismissThreshold: CGFloat { height * 0.2 }
-    private var grayBackgroundOpacity: Double { isPresented ? (0.4 - Double(draggedOffset)/600) : 0 }
+    private var grayBackgroundOpacity: Double { isPresented ? backgroundOpacity : 0 }
     
     @State private var draggedOffset: CGFloat = 0
     @State private var previousDragValue: DragGesture.Value?
@@ -27,6 +27,7 @@ public struct BottomSheet<Content: View>: View {
     private let showTopIndicator: Bool
     private let animation: Animation
     private let onDismiss: (() -> Void)?
+    private let backgroundOpacity: CGFloat
     
     public init(
         isPresented: Binding<Bool>,
@@ -35,6 +36,7 @@ public struct BottomSheet<Content: View>: View {
         topBarCornerRadius: CGFloat? = nil,
         topBarBackgroundColor: Color = Color(.systemBackground),
         contentBackgroundColor: Color = Color(.systemBackground),
+        backgroundOpacity: CGFloat = 0,
         showTopIndicator: Bool,
         animation: Animation = .easeInOut(duration: 0.3),
         onDismiss: (() -> Void)? = nil,
@@ -42,6 +44,7 @@ public struct BottomSheet<Content: View>: View {
     ) {
         self.topBarBackgroundColor = topBarBackgroundColor
         self.contentBackgroundColor = contentBackgroundColor
+        self.backgroundOpacity = backgroundOpacity
         self._isPresented = isPresented
         self.height = height
         self.topBarHeight = topBarHeight

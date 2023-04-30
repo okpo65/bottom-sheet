@@ -17,6 +17,7 @@ public extension View {
         topBarCornerRadius: CGFloat? = nil,
         contentBackgroundColor: Color = Color(.systemBackground),
         topBarBackgroundColor: Color = Color(.systemBackground),
+        backgroundOpacity: CGFloat = 0,
         showTopIndicator: Bool = true,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> Content
@@ -29,6 +30,7 @@ public extension View {
                         topBarCornerRadius: topBarCornerRadius,
                         topBarBackgroundColor: topBarBackgroundColor,
                         contentBackgroundColor: contentBackgroundColor,
+                        backgroundOpacity: backgroundOpacity,
                         showTopIndicator: showTopIndicator,
                         onDismiss: onDismiss,
                         content: content)
@@ -43,6 +45,7 @@ public extension View {
         contentBackgroundColor: Color = Color(.systemBackground),
         topBarBackgroundColor: Color = Color(.systemBackground),
         showTopIndicator: Bool = true,
+        backgroundOpacity: CGFloat = 0,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View {
@@ -61,6 +64,7 @@ public extension View {
             topBarCornerRadius: topBarCornerRadius,
             contentBackgroundColor: contentBackgroundColor,
             topBarBackgroundColor: topBarBackgroundColor,
+            backgroundOpacity: backgroundOpacity,
             showTopIndicator: showTopIndicator,
             onDismiss: onDismiss
         ) {
