@@ -18,6 +18,7 @@ public struct BottomSheet<Content: View>: View {
     @State private var previousDragValue: DragGesture.Value?
 
     @Binding var isPresented: Bool
+    @Binding var isAllowedBackgroundTouching: Bool
     private let height: CGFloat
     private let topBarHeight: CGFloat
     private let topBarCornerRadius: CGFloat
@@ -31,6 +32,7 @@ public struct BottomSheet<Content: View>: View {
     
     public init(
         isPresented: Binding<Bool>,
+        isAllowedBackgroundTouching: Binding<Bool>,
         height: CGFloat,
         topBarHeight: CGFloat = 30,
         topBarCornerRadius: CGFloat? = nil,
@@ -46,6 +48,7 @@ public struct BottomSheet<Content: View>: View {
         self.contentBackgroundColor = contentBackgroundColor
         self.backgroundOpacity = backgroundOpacity
         self._isPresented = isPresented
+        self._isAllowedBackgroundTouching = isAllowedBackgroundTouching
         self.height = height
         self.topBarHeight = topBarHeight
         if let topBarCornerRadius = topBarCornerRadius {
@@ -95,8 +98,10 @@ public struct BottomSheet<Content: View>: View {
             .edgesIgnoringSafeArea(.all)
             .animation(animation)
             .onTapGesture {
-                self.isPresented = false
-                onDismiss?()
+                if isAllowedBackgroundTouching {
+                    self.isPresented = false
+                    onDismiss?()
+                }
             }
     }
     

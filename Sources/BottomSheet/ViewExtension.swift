@@ -12,6 +12,7 @@ import SwiftUI
 public extension View {
     func bottomSheet<Content: View>(
         isPresented: Binding<Bool>,
+        isAllowedBackgroundTouching: Binding<Bool>,
         height: CGFloat,
         topBarHeight: CGFloat = 30,
         topBarCornerRadius: CGFloat? = nil,
@@ -25,6 +26,7 @@ public extension View {
         ZStack {
             self
             BottomSheet(isPresented: isPresented,
+                        isAllowedBackgroundTouching: isAllowedBackgroundTouching,
                         height: height,
                         topBarHeight: topBarHeight,
                         topBarCornerRadius: topBarCornerRadius,
@@ -57,8 +59,17 @@ public extension View {
             }
         }
         
+        let isAllowedBackgroundTouching = Binding {
+            item.wrappedValue != nil
+        } set: { value in
+            if !value {
+                item.wrappedValue = nil
+            }
+        }
+        
         return bottomSheet(
             isPresented: isPresented,
+            isAllowedBackgroundTouching: isAllowedBackgroundTouching,
             height: height,
             topBarHeight: topBarHeight,
             topBarCornerRadius: topBarCornerRadius,
